@@ -40,9 +40,16 @@ Work with yum :
     yum groups list hidden
     yum groups info “Basic Web Server"
 
+Work with history :
+--------------------
+
+    yum history
+    yum history info 4 
+    yum history undo 4 
+
 Work with rpm :
 ---------------
 
-    rpm -qa  — all packages
+    rpm -qa  —all packages
     rpm -ql htop
     rpm --query --state htop
