@@ -10,8 +10,13 @@ Cron service
 Cron config 
 ------------
   * Cron files in /etc/cron.d
-  * Scripts in /etc/cron.hourly, cron.daily, cron.weekly, and cron.monthly
+  * Scripts in /etc/cron.{hourly|daily|weekly|monthly} 
   * User-specific files that are created with crontab -e
+
+AnaCron service
+---------------
+
+    cat /etc/anacrontab
 
 Job definition pattern 
 ----------------------
@@ -25,15 +30,28 @@ Job definition pattern
     |  |  |  |  |
     *  *  *  *  * user-name  command to be executed
 
+    01 01 * * 0/2
 Run user crone 
 ---------------
 
     crontab -e 
     cat /var/spool/cron/root >>
       * * * * * echo `date` >> /tmp/crone
+    crontab -l
 
+Cron security
+-------------
 
+  Add user to : `/etc/cron.allow` or `/etc/cron.deny`
 
+At service on RHEL
+------------------
+
+    at 14:00
+    at teatime
+    at noon
+      >> command + Ctr+D
+    atq 
 
 
 
