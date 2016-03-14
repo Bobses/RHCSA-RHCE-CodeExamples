@@ -22,12 +22,12 @@ man `[ rsyslog.conf, logger, syslog ]`
       
     yum install -y httpd
          
-    echo "ErrorLog syslog:local1" >  /etc/httpd/conf/httpd.conf
+    echo "ErrorLog syslog.local1" >  /etc/httpd/conf/httpd.conf
     systemctl restart httpd
 
-    echo "*.debug /var/log/messages/messages-debug" > /etc/rsyslog.d/debug.conf
+    echo "*.debug /var/log/messages-debug.log" > /etc/rsyslog.d/debug.conf
     systemctl restart rsyslog
     logger -p local0.debug "Daemon Debug Message"
-    less /var/log/messages
+    less /var/log/messages-debug.log
       
       
