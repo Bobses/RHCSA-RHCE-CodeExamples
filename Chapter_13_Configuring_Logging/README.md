@@ -41,8 +41,11 @@ Work with journalctl
     journalctl --since yesterday -p err
     journalctl --since="2016-03-14 09:30:22" --until="2016-03-14 09:30:23" --output verbose
     journalctl --follow SYSLOG_IDENTIFIER=root
+    journalctl -F _SYSTEMD_UNIT
+    journalctl  _SYSTEMD_UNIT="sshd.service"
+    journalctl /usr/sbin/dhclient
 
-Systemd Journal rotation
+Persists Systemd JournalD
 -------------------------
 
     nano /etc/systemd/journald.conf
@@ -50,3 +53,8 @@ Systemd Journal rotation
     chown root:systemd-journal /var/log/journal
     chmod 2755 /var/log/journal
     reboot or killall -USR1 systemd-journald
+
+Rotating Log Files
+------------------
+
+    nano /etc/logrotate.conf
