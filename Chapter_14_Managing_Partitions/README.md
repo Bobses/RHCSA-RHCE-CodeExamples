@@ -17,7 +17,7 @@ Disk Size measurement
 Work with partitions
 --------------------
 
-Create partition
+*Create partition*
 
     fdisk -l /dev/sdb
     cat /proc/partitions
@@ -45,3 +45,13 @@ Create partition
     /dev/sdb1            2048      206847      102400   83  Linux
 
     Command (m for help): w
+
+*Create / mount partition*
+
+    journalctl  -k _KERNEL_SUBSYSTEM=scsi
+    fdisk /dev/sdb
+    mkfs.xfs -V /dev/sdb1
+    fsck -t xfs -V -r /dev/sdb1
+    mount -t xfs /dev/sdb1 /mnt/sdb1
+    nano /etc/fstab >
+      /dev/sdb1 /mnt/sdb1  xfs     defaults        0 0
