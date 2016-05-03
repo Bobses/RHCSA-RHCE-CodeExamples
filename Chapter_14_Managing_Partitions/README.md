@@ -2,6 +2,7 @@
 Disk Size measurement
 ---------------------
 
+    1 byte = 8 bits
     1 byte = 1 byte
 
     1 KB = 1000 bytes
