@@ -44,8 +44,8 @@ Work with history :
 --------------------
 
     yum history
-    yum history info 4 
-    yum history undo 4 
+    yum history info 4
+    yum history undo 4
 
 Work with rpm :
 ---------------
@@ -53,3 +53,4 @@ Work with rpm :
     rpm -qa  —all packages
     rpm -ql htop
     rpm --query --state htop
+    rpm -q -f /usr/bin/passwd -d  -vv
