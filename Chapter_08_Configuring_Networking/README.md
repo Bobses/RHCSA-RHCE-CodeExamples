@@ -45,3 +45,8 @@ Set HostName and Name Resolution
 --------------------------------
 
     hostnamectl set-hostname server-2
+
+Config directly
+---------------
+
+    vi /etc/sysconfig/network-scripts/ifcfg-enp0s3

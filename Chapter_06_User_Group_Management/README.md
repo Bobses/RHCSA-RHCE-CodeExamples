@@ -41,3 +41,17 @@ Elevated permissions
     su -
     sudo
     PolicyKit
+
+LDAP client
+------------
+
+    echo "192.168.100.100 ipa.example.com" >> /etc/hosts
+    yum group list hidden    
+    yum group install -y "Directory Client"
+
+    scp ipa.example.com:/etc/ipa/ca.crt /etc/openldap/cacerts/ca.crt
+
+    authconfig-tui ->
+      uri ldap://ipa.example.com/
+      base dc=example,dc=com
+      ssl start_tls

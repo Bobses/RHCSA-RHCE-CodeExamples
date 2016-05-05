@@ -8,32 +8,30 @@ Install IPA Server
 Setup IPA Server
 ------------------
 
-    echo "192.168.100.100   ipa.example.com ipa" >> /etc/hosts
+    echo "192.168.100.100 ipa.example.com ipa" >> /etc/hosts
      ? hostnamectl set-hostname ipa.example.com
     ping ipa.example.com
 
-    ipa-server-install --setup-dns --domain=example.com --realm=EXAMPLE.COM --hostname=ipa.example.com --no-forwarders --admin-password=password --ds-password=password --reverse-zone=100.168.192.in-addr.arpa
+    ipa-server-install --setup-dns --domain=example.com --realm=EXAMPLE.COM --hostname=ipa.example.com --admin-password=password --ds-password=password --reverse-zone=100.168.192.in-addr.arpa --forwarder=8.8.8.8
 
-    The IPA Master Server will be configured with:
     Hostname:       ipa.example.com
-    IP address(es): 10.0.2.15, 192.168.100.100
+    IP address(es): 192.168.100.100
     Domain name:    example.com
     Realm name:     EXAMPLE.COM
 
     BIND DNS server will be configured to serve IPA domain with:
-    Forwarders:    No forwarders
-    Reverse zone(s):  2.0.10.in-addr.arpa., 100.168.192.in-addr.arpa.
+    Forwarders:    8.8.8.8
+    Reverse zone(s):  100.168.192.in-addr.arpa.
 
-
-Firewall
----------
+Firewall (on server)
+---------------------
 
     for i in http https ldap ldaps kerberos kpasswd dns ntp; do firewall-cmd --permanent --add-service $i; done
     kinit admin
     klist
 
-FTP
------
+FTP (on server)
+----------------
 
     yum install -y vsftpd
     systemctl enable vsftpd
@@ -43,3 +41,22 @@ FTP
     firewall-cmd --permanent --add-service ftp
     firewall-cmd --reload
     klist
+
+
+LDAP (on client side )
+----------------------
+
+    yum install -y openldap-clients nss-pam-ldapd
+
+    scp ipa.example.com:/etc/ipa/ca.crt /etc/openldap/cacerts/ca.crt
+
+    authconfig --enableldap --enableldapauth --ldapserver="ipa.example.com" --ldapbasedn="dc=example,dc=com" --update
+
+    systemctl restart nslcd
+
+    /etc/nslcd.conf
+      uri ldap://ipa.example.com/
+      base dc=example,dc=com
+      ssl start_tls
+      tls_reqcert never
+      tls_cacertdir /etc/openldap/cacerts
