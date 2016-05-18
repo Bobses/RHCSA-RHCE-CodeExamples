@@ -22,7 +22,7 @@ Create logical volume
     mount /dev/vgname/lvol0 /mnt/vgname/lvol0
     mount /dev/vgname/lvol1 /mnt/vgname/lvol1
     mount /dev/vgname/lvol2 /mnt/vgname/lvol2
-
+    systemctl status /mnt/vgname/lvol2
 
 Resize LV
 ---------
