@@ -1,5 +1,3 @@
-
-
 Install IPA Server
 ------------------
 
@@ -8,20 +6,27 @@ Install IPA Server
 Setup IPA Server
 ------------------
 
-    echo "192.168.100.100 ipa.example.com ipa" >> /etc/hosts
-     ? hostnamectl set-hostname ipa.example.com
+    echo "192.168.122.200 ipa.example.com ipa" >> /etc/hosts
+    hostnamectl set-hostname ipa.example.com
     ping ipa.example.com
 
-    ipa-server-install --setup-dns --domain=example.com --realm=EXAMPLE.COM --hostname=ipa.example.com --admin-password=password --ds-password=password --reverse-zone=100.168.192.in-addr.arpa --forwarder=8.8.8.8
+    ipa-server-install --setup-dns --domain=example.com --realm=EXAMPLE.COM --hostname=ipa.example.com --admin-password=password --ds-password=password --reverse-zone=122.168.192.in-addr.arpa --forwarder=8.8.8.8
 
     Hostname:       ipa.example.com
-    IP address(es): 192.168.100.100
+    IP address(es): 192.168.122.200
     Domain name:    example.com
     Realm name:     EXAMPLE.COM
 
     BIND DNS server will be configured to serve IPA domain with:
     Forwarders:    8.8.8.8
-    Reverse zone(s):  100.168.192.in-addr.arpa.
+    Reverse zone(s):  122.168.192.in-addr.arpa.
+
+Add first user
+--------------
+
+    kinit admin
+    klist
+    ipa user-add
 
 Firewall (on server)
 ---------------------
@@ -38,6 +43,11 @@ FTP (on server)
     systemctl start vsftpd
     cp -v ~/cacert.p12 /var/ftp/pub
 
+First user
+-----------
+
+    /etc/resolv.conf
+        -> 127.0.0.1
     firewall-cmd --permanent --add-service ftp
     firewall-cmd --reload
     klist

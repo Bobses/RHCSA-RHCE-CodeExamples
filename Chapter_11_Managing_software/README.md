@@ -5,7 +5,6 @@ Search help
     man yum
     man yum.conf
 
-
 Mount cdrom :
 --------------
 
@@ -17,12 +16,17 @@ Create Local repo :
 -------------------
 
     yum install createrepo
-    createrepo /repo
+    cp /mnt/cdroom/repodata/k2j34kj23k4j324k-c7-x86_64-comps.xml /repo/comps.xml
+    createrepo -g /repo/comps.xml /repo/Packages
+    yum clean all
 
     nano >>
       [my-repo-id]
       name=My Repo Name
-      baseurl=file:///repo
+      baseurl=file:///repo/Packages
+      enabled=1
+      gpgcheck=0
+
 
 
 Search Packages:
@@ -30,8 +34,7 @@ Search Packages:
 
     yum whatprovides */semanage
     yum provides */semanage
-    yum search
-
+    yum --disablerepo=** --enablerepo=local-repo search
 
 Work with yum :
 ---------------
