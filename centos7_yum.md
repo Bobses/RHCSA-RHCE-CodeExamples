@@ -25,10 +25,32 @@ Set up yum repo over httpd
 
 
 ### On Client ###
-    vi /etc/yum.conf.d/InternalYumrepo >>
+    vi /etc/yum.conf.d/InternalYum.repo >>
 
       [my-repo-id]
       name=My Locla Repo Name
       baseurl=http:///192.168.122.34/repo/Packages
       enabled=1
       gpgcheck=0
+
+Set up yum repo over FTP
+-----------------------------
+
+### On Server ###
+
+    yum install -y vsftpd
+    systemctl enable vsftpd
+    systemctl start vsftpd
+
+    mount -o loop /dev/sr0 /mnt/cdrom
+    cp -rv /mnt/cdrom/ /var/ftp/pub/centos7
+
+
+### On Client ###
+    vi /etc/yum.conf.d/ >> local.repo
+
+    [local-ftp-repo]
+    name=My Local ftp repo
+    baseurl=ftp://192.168.122.34/pub/centos7/Packages
+    enabled=1
+    gpgcheck=0
