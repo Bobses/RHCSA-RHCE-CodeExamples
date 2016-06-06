@@ -14,3 +14,8 @@ Firewall cfg.
 
     firewall-cmd --add-service=http
     firewall-cmd --permanent --add-port=8080/tcp
+
+    firewall-cmd --add-rich-rule 'rule family="ipv4" destination address="192.168.4.0/24" port port="100" protocol="udp" log accept'
+    firewall-cmd --permanent --add-rich-rule 'rule protocol value="tcp" log'
+    firewall-cms --permanent --add-rich-rule 'rule protocol value="udp" log'
+
