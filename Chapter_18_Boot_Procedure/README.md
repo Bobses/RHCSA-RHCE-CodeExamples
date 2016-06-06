@@ -11,9 +11,15 @@ Systemd
     systemctl cat boot.mount
     systemctl --type=target --all
     systemctl get-default
+    systemctl set-default
 
     /etc/systemd/system/multi-user.target.wants/vsftpd.service to /usr/lib/systemd/system/vsftpd.service.
 
+
+Change systemd target in grub
+------------------------------
+
+    systemd.unit=multi-user.target
 
 Systemd dep.
 ------------
@@ -35,3 +41,14 @@ Grub2
     man 7 bootparam
 
     grub2-mkconfig -o /boot/grub2/grub.cfg
+
+Reset admin password
+---------------------
+
+### GRUB2 Cfg ###
+
+    add -> rw init=/sysroot/bin/sh
+    boot ~
+    chroot /sysroot
+    passwrd root
+    touch /.autorelabel    
