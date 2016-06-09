@@ -20,6 +20,12 @@ SElinux enable / disable
     sestatus
     setenforce  0
 
+Policy Management
+------------------
+
+    seinfo
+    sesearch
+
 SElinux booleans
 -----------------
 
