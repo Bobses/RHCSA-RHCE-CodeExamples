@@ -28,3 +28,8 @@ Resize LV
 ---------
 
     lvresize -L+100M /dev/vgname/lvol2
+
+Activate inactive
+-----------------
+
+    vgchange -ay

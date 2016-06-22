@@ -46,6 +46,13 @@ Find
 ----------
 
     find / -type f -atime +10 -size -5M -uid 0
+    find / -perm /g+s -type f -print0 | xargs -0 -p -t cp -t /dest
+    find / -perm /g+s -type f -exec cp -t /dest2 "{}" \;
+
+Redirecting output
+------------------
+
+    find / -perm /g+s -type f 2> /dev/null -print0| xargs -0
 
 Bash
 ----------

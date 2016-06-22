@@ -96,6 +96,28 @@ Add Swap
     swapon /dev/sdc3
     free -m
 
+*As partition (LVM)*
+
+    pvcreate /dev/sbd1
+    pvcreate /dev/sbd2
+    vgcreate -v -d vgdata /dev/sdb2 /dev/sdb1
+
+    lvcreate -v -L +300M --name swap_1 vgdata
+    lvcreate --name swap_2 -L +50M vgdata
+
+    mkswap -c -L swap_1_label /dev/vgdata/swap_1 2500
+    mkswap -L swap_2_label /dev/vgdata/swap_2
+
+    swapon -L swap_1_label
+    swapop -a
+    swapop
+
+    swaplabel /dev/vgdata/swap_2
+
+    /etc/fstab ~>
+      LABEL=swap_1_label  swap  swap  defaults 0 0
+      UUID=c666b8e8-dce7-4f29-93a0-9383f3f4b84e swap swap defaults 0 0
+
 *As file*
 
     dd if=/dev/zero of=/swapfile bs=1M count=100

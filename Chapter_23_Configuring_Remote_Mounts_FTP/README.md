@@ -18,7 +18,6 @@ Samba
     mount -o username=sambauser1 //server/share /somewhere
     //server1/data /mnt/data cifs _netdev,, x-systemd. automount,credentials=/root/creds 0 0
 
-
 Ftp
 ------
 
@@ -33,3 +32,47 @@ Ftp
     systemctl start vsftpd
     firewall-cmd --add-service ftp --permanent
     firewall-cmd --reload.
+
+
+AutoFs
+-------
+
+#### Direct access ####
+
+    yum install autofs -y
+
+    vim /etc/auto.master ~>
+      /- /etc/auto.direct
+
+    mkdir -p /nfsshare
+    vim /etc/auto.direct ~>
+      /nfsshare 192.168.100.102:/nfsshare
+
+    systemctl enable autofs
+    systemctl start autofs
+
+#### Indirect map ####
+
+    yum install autofs -y
+
+    vim /etc/auto.master ~>
+      /nfs /etc/auto.indirect
+
+    vim /etc/auto.indirect ~>
+      /share 192.168.100.102:/nfsshare
+
+    systemctl enable autofs
+    systemctl start autofs
+
+#### Wildcards in Automount ####
+
+    yum install autofs -y
+
+    vim /etc/auto.master ~>
+      /nfs /etc/auto.users
+
+    vim /etc/auto.users ~>
+      * 192.168.100.102:/home/ldap/&
+
+    systemctl enable autofs
+    systemctl start autofs

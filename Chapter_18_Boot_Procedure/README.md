@@ -39,8 +39,20 @@ Grub2
     /etc/default/grub
     yum install man-pages
     man 7 bootparam
+    grubby --info=ALL
 
     grub2-mkconfig -o /boot/grub2/grub.cfg
+
+
+Troubleshooting Grub2
+----------------------
+
+    On grub menu + `e` , add
+
+    systemd.unit=emergency.target
+  or
+    systemd.unit=rescue.target
+
 
 Reset admin password
 ---------------------

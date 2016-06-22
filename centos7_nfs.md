@@ -2,16 +2,27 @@ Install NFS server
 ------------------
 
     yum install nfs-utils
-    systemcli enable nfs-server
-    systemcli enable nfs-lock
-    systemcli enable nfs-idmap
+    mkdir /nfsshare
 
-    systemcli start nfs-server
-    systemcli start nfs-lock
-    systemcli start nfs-idmap
+    setsebool nfs_export_all_ro
+    setsebool nfs_export_all_rw
+
+    firewall-cmd --permanent --add-service nfs
+    firewall-cmd --reload
+
+    systemctl enable rpcbind
+    systemctl enable nfs-server
+    systemctl enable nfs-lock
+    systemctl enable nfs-idmap
+
+    systemctl start rpcbind  
+    systemctl start nfs-server
+    systemctl start nfs-lock
+    systemctl start nfs-idmap
 
     vim /etc/exports ->
-      /home    *(rw,sync,no_root_squash,no_all_squash)
+      /home       *(rw,sync,no_root_squash,no_all_squash)
+      /nfsshare   *(sync)
 
     systemcli restart nfs-server
     systemcli stop firewalld
