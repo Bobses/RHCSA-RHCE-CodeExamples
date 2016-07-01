@@ -52,6 +52,8 @@ Find
 Redirecting output
 ------------------
 
+    ll 1> /no_error.msg
+    ll &> /stdout_stderr.msg
     find / -perm /g+s -type f 2> /dev/null -print0| xargs -0
 
 Bash

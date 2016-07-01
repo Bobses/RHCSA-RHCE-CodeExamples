@@ -16,3 +16,5 @@ Date / Time
     timedatectl set-ntp 1
 
     chronyc sources
+
+    date -d “+1month”

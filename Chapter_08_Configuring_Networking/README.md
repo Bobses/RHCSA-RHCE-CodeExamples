@@ -16,6 +16,7 @@ NetworkManager's
 ----------------
 
     nmcli con show
+    nmcli c s
     nmcli con show "Wired connection 1"
     nmcli dev show
 
@@ -28,7 +29,6 @@ Add Ip to host (persistent )
     nmcli con mod static-ip ipv4.address 192.168.0.110/24
     nmcli con down static-ip
     nmcli con up static-ip
-
 
     nmcli con mod static-ip ipv4.gateway 192.168.0.1
 
